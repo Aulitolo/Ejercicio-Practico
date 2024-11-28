@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversión de Moneda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #console {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 15px;
+            font-family: monospace;
+            overflow-y: auto;
+            max-height: 300px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conversión de Pesos Colombianos (COP) a Dólares (USD) y Euros (EUR)</h1>
+  
+      <div id="console"></div>
+
+    <script>
+        // Tasas de cambio
+        const TASA_USD = 4000; // 1 USD = 4000 COP
+        const TASA_EUR = 4500; // 1 EUR = 4500 COP
+
+        // Elemento donde se simula la consola
+        const consoleDiv = document.getElementById("console");
+
+        /*
+         Función para simular un prompt en consola
+         {string} mensaje - Mensaje que se muestra al usuario
+         {string} - Valor ingresado por el usuario
+         */
+        function promptConsola(mensaje) {
+            const valor = prompt(mensaje);
+            logConsola(`> ${mensaje}\n${valor}`);
+            return valor;
+        }
+
+        /*
+         Función para escribir en la consola simulada
+         {string} mensaje - Mensaje a escribir
+         */
+        function logConsola(mensaje) {
+            consoleDiv.innerText += `${mensaje}\n`;
+        }
+
+        /*
+          Función principal para realizar la conversión
+         */
+        function iniciarAplicacion() {
+            logConsola("Proceso de conversión de COP a USD y EUR.");
+            
+            let valorCOP;
+            while (true) {
+                // Se muestra el valor ingresado por el usuario
+                const entrada = promptConsola("Por favor, ingrese el valor en COP:");
+
+                // Validar entrada
+                valorCOP = parseFloat(entrada);
+                if (!isNaN(valorCOP) && valorCOP > 0) {
+                    break; // Salir del bucle si el valor es válido
+                }
+
+                // Mensaje de error si la entrada es inválida
+                logConsola("Error: El valor ingresado no es válido. Inténtelo de nuevo.");
+            }
+
+            // se realizan conversiones
+            const valorUSD = (valorCOP / TASA_USD).toFixed(2);
+            const valorEUR = (valorCOP / TASA_EUR).toFixed(2);
+
+            // se muestran resultados en consola
+            logConsola(`\nResultados de la conversión:`);
+            logConsola(`- Valor ingresado: ${valorCOP} COP`);
+            logConsola(`- Equivalente en USD: $${valorUSD} USD`);
+            logConsola(`- Equivalente en EUR: €${valorEUR} EUR`);
+            logConsola("\nGracias por usar la aplicación.");
+        }
+
+        // Iniciar la aplicación al cargar la página
+        iniciarAplicacion();
+    </script>
+</body>
+</html>
